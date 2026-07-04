@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import DashboardPage from "@/pages/dashboard/DashboardPage";
+import RoadmapPage from "@/pages/roadmap/RoadmapPage";
 
 // Stub component for pages not yet built
 function ComingSoon({ title }: { title: string }) {
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "roadmap",
-        element: <ComingSoon title="Roadmaps" />,
+        element: <RoadmapPage />,
       },
       {
         path: "sheets",

@@ -1,11 +1,17 @@
 import { Check, Zap, ChevronDown } from "lucide-react";
 
-interface TimelineItem {
+export interface TimelineItem {
   step: number;
   title: string;
   description: string;
   status: "completed" | "in-progress" | "locked";
   progress?: number;
+}
+
+export interface RoadmapTimelineProps {
+  items?: TimelineItem[];
+  currentSemester?: number;
+  monthsRemaining?: number;
 }
 
 const timelineData: TimelineItem[] = [
@@ -124,7 +130,11 @@ function TimelineNode({ item }: { item: TimelineItem }) {
   );
 }
 
-export default function RoadmapTimeline() {
+export default function RoadmapTimeline({
+  items = timelineData,
+  currentSemester = 3,
+  monthsRemaining = 24,
+}: RoadmapTimelineProps) {
   return (
     <div className="bg-white p-8 rounded-3xl custom-shadow border border-slate-100">
       {/* Header */}
@@ -137,11 +147,11 @@ export default function RoadmapTimeline() {
         </div>
         <div className="flex items-center gap-6">
           <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl text-sm font-semibold hover:bg-slate-50 transition">
-            You are in: <span className="text-indigo-600">Semester 3</span>
+            You are in: <span className="text-indigo-600">Semester {currentSemester}</span>
             <ChevronDown className="w-4 h-4" />
           </button>
           <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
-            24 Months Remaining
+            {monthsRemaining} Months Remaining
           </span>
         </div>
       </div>
@@ -151,7 +161,7 @@ export default function RoadmapTimeline() {
         {/* Vertical Line */}
         <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-slate-100" />
 
-        {timelineData.map((item) => (
+        {items.map((item) => (
           <TimelineNode key={item.step} item={item} />
         ))}
       </div>
